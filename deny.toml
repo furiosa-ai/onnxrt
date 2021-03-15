@@ -1,0 +1,26 @@
+[licenses]
+copyleft = "deny"
+confidence-threshold = 1.0
+allow = [
+  "Apache-2.0",
+  "BSD-3-Clause",
+  "ISC",
+  "MIT",
+  "MPL-2.0",
+  "OpenSSL",
+  "Zlib",
+]
+
+[[licenses.clarify]]
+name = "webpki"
+expression = "ISC"
+license-files = [
+    { path = "LICENSE", hash = 0x001c7e6c },
+]
+
+[[licenses.clarify]]
+name = "ring"
+expression = "ISC AND OpenSSL AND MIT"
+license-files = [
+    { path = "LICENSE", hash = 0xbd0eed23 },
+]

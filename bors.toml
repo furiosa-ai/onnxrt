@@ -1,0 +1,8 @@
+status = [
+  "cargo test (ubuntu-latest)",
+  "cargo test (macOS-latest)",
+  "cargo test (windows-latest)",
+  "cargo fmt/clippy",
+  "cargo deny",
+]
+cut_body_after = "<details>"

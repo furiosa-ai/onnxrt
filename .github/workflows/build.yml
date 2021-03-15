@@ -1,0 +1,121 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+    - 'dependabot/**'
+    - staging.tmp
+    - trying.tmp
+  schedule:
+    - cron: '0 1 1 * *' # at 01:00 UTC on the first day of each month
+  workflow_dispatch:
+
+jobs:
+  cargo-test-ubuntu:
+    name: cargo test (Ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    - name: Install OpenMP
+      run: |
+        sudo apt-get update --assume-yes --quiet --quiet
+        sudo apt-get install --assume-yes --quiet --quiet --no-install-recommends libgomp1
+    - name: cargo test
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
+    # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
+    - name: cargo test (doc)
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --doc
+
+  cargo-test-macos:
+    name: cargo test (macOS)
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    - name: Install OpenMP
+      run: |
+        brew update
+        brew install libomp
+    - name: cargo test
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
+    # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
+    - name: cargo test (doc)
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --doc
+
+  cargo-test-windows:
+    name: cargo test (Windows)
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    - name: cargo test
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
+    # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
+    - name: cargo test (doc)
+      uses: actions-rs/cargo@v1
+      with:
+        command: test
+        args: --verbose --workspace --doc
+
+  cargo-fmt-clippy:
+    name: cargo fmt/clippy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        components: rustfmt, clippy
+        override: true
+    - name: cargo fmt
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --verbose --all -- --check --verbose
+    - name: cargo clippy
+      uses: actions-rs/cargo@v1
+      with:
+        command: clippy
+        args: --verbose --workspace --all-targets -- --deny warnings
+
+  cargo-deny:
+    name: cargo deny
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: cargo deny
+      uses: EmbarkStudios/cargo-deny-action@v1
