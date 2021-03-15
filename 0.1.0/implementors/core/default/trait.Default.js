@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["onnxrt"] = [{"text":"impl Default for RunOptions","synthetic":false,"types":[]},{"text":"impl Default for SessionOptions","synthetic":false,"types":[]},{"text":"impl Default for TensorTypeAndShapeInfo","synthetic":false,"types":[]},{"text":"impl&lt;'d&gt; Default for Value&lt;'d&gt;","synthetic":false,"types":[]},{"text":"impl Default for ThreadingOptions","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
