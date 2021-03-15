@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["onnxrt"] = [{"text":"impl From&lt;Error&gt; for Error","synthetic":false,"types":[]},{"text":"impl From&lt;NulError&gt; for Error","synthetic":false,"types":[]},{"text":"impl From&lt;TryFromIntError&gt; for Error","synthetic":false,"types":[]},{"text":"impl From&lt;Utf8Error&gt; for Error","synthetic":false,"types":[]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
