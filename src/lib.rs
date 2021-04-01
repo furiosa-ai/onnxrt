@@ -1385,6 +1385,7 @@ impl Drop for TypeInfo {
     }
 }
 
+#[allow(clippy::upper_case_acronyms)]
 pub trait AsONNXTensorElementDataType {
     fn as_onnx_tensor_element_data_type() -> ONNXTensorElementDataType;
 }
