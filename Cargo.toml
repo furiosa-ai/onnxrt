@@ -13,4 +13,4 @@ edition = "2018"
 
 [dependencies]
 once_cell = "1.7.2"
-onnxruntime-sys = "0.0.11"
+onnxruntime-sys = "0.0.12"
