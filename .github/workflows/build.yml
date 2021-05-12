@@ -28,13 +28,13 @@ jobs:
         sudo apt-get update --assume-yes --quiet --quiet
         sudo apt-get install --assume-yes --quiet --quiet --no-install-recommends libgomp1
     - name: cargo test
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
     # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
     - name: cargo test (doc)
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --doc
@@ -55,13 +55,13 @@ jobs:
         brew update
         brew install libomp
     - name: cargo test
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
     # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
     - name: cargo test (doc)
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --doc
@@ -78,13 +78,13 @@ jobs:
         toolchain: stable
         override: true
     - name: cargo test
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --all-targets -- -Z unstable-options --include-ignored
     # `cargo test --all-targets` does not run doctests: https://github.com/rust-lang/cargo/issues/6669.
     - name: cargo test (doc)
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: test
         args: --verbose --workspace --doc
@@ -102,12 +102,12 @@ jobs:
         components: rustfmt, clippy
         override: true
     - name: cargo fmt
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: fmt
         args: --verbose --all -- --check --verbose
     - name: cargo clippy
-      uses: actions-rs/cargo@v1
+      uses: actions-rs/cargo@v1.0.3
       with:
         command: clippy
         args: --verbose --workspace --all-targets -- --deny warnings
