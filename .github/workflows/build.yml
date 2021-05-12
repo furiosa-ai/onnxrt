@@ -118,4 +118,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cargo deny
-      uses: EmbarkStudios/cargo-deny-action@v1
+      uses: EmbarkStudios/cargo-deny-action@v1.2.6
