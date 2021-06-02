@@ -770,7 +770,7 @@ impl Session {
         bail_on_error!(ORT_API.CreateSessionFromArray.unwrap()(
             env.lock().unwrap().raw.as_ptr(),
             model_data.as_ptr() as *const c_void,
-            model_data.len().try_into()?,
+            model_data.len(),
             options.session_options.as_ptr(),
             &mut session,
         ));
@@ -936,9 +936,9 @@ impl Session {
             run_options.map(|x| x.raw.as_ptr() as *const _).unwrap_or(ptr::null::<OrtRunOptions>()),
             input_names.as_ptr(),
             input_values.as_ptr() as *const *const OrtValue,
-            input_values.len().try_into()?,
+            input_values.len(),
             output_names.as_ptr(),
-            output_values.len().try_into()?,
+            output_values.len(),
             output_values.as_mut_ptr() as *mut *mut OrtValue,
         ));
         Ok(())
@@ -962,14 +962,14 @@ impl Session {
     pub fn input_count(&self) -> self::Result<usize> {
         let mut count = 0;
         bail_on_error!(ORT_API.SessionGetInputCount.unwrap()(self.raw.as_ptr(), &mut count));
-        Ok(count.try_into()?)
+        Ok(count)
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/718ca7f92085bef4b19b1acc71c1e1f3daccde94/include/onnxruntime/core/session/onnxruntime_c_api.h#L439)
     pub fn output_count(&self) -> self::Result<usize> {
         let mut count = 0;
         bail_on_error!(ORT_API.SessionGetOutputCount.unwrap()(self.raw.as_ptr(), &mut count));
-        Ok(count.try_into()?)
+        Ok(count)
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/718ca7f92085bef4b19b1acc71c1e1f3daccde94/include/onnxruntime/core/session/onnxruntime_c_api.h#L440)
@@ -979,7 +979,7 @@ impl Session {
             self.raw.as_ptr(),
             &mut count,
         ));
-        Ok(count.try_into()?)
+        Ok(count)
     }
 
     pub fn input_name(&self, index: usize) -> self::Result<String> {
@@ -996,7 +996,7 @@ impl Session {
         let mut name_ptr = ptr::null_mut::<c_char>();
         bail_on_error!(ORT_API.SessionGetInputName.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             allocator,
             &mut name_ptr,
         ));
@@ -1021,7 +1021,7 @@ impl Session {
         let mut name_ptr = ptr::null_mut::<c_char>();
         bail_on_error!(ORT_API.SessionGetOutputName.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             allocator,
             &mut name_ptr,
         ));
@@ -1049,7 +1049,7 @@ impl Session {
         let mut name_ptr = ptr::null_mut::<c_char>();
         bail_on_error!(ORT_API.SessionGetOverridableInitializerName.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             allocator,
             &mut name_ptr,
         ));
@@ -1152,7 +1152,7 @@ impl Session {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetInputTypeInfo.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             &mut type_info,
         ));
         Ok(TypeInfo { raw: NonNull::new(type_info).unwrap() })
@@ -1163,7 +1163,7 @@ impl Session {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetOutputTypeInfo.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             &mut type_info,
         ));
         Ok(TypeInfo { raw: NonNull::new(type_info).unwrap() })
@@ -1174,7 +1174,7 @@ impl Session {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetOverridableInitializerTypeInfo.unwrap()(
             self.raw.as_ptr(),
-            index.try_into()?,
+            index,
             &mut type_info,
         ));
         Ok(TypeInfo { raw: NonNull::new(type_info).unwrap() })
@@ -1227,7 +1227,7 @@ impl TensorTypeAndShapeInfo {
         panic_on_error!(ORT_API.SetDimensions.unwrap()(
             self.raw.as_ptr(),
             dims.as_ptr(),
-            dims.len().try_into().unwrap(),
+            dims.len(),
         ));
         self
     }
@@ -1309,7 +1309,7 @@ fn element_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> i64 {
 fn dimensions_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> usize {
     let mut count = 0;
     panic_on_error!(ORT_API.GetDimensionsCount.unwrap()(tensor_type_info, &mut count));
-    count.try_into().unwrap()
+    count
 }
 
 /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/718ca7f92085bef4b19b1acc71c1e1f3daccde94/include/onnxruntime/core/session/onnxruntime_c_api.h#L563-L564)
@@ -1318,7 +1318,7 @@ fn dimensions(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> Vec<i64> {
     panic_on_error!(ORT_API.GetDimensions.unwrap()(
         tensor_type_info,
         dims.as_mut_ptr(),
-        dims.len().try_into().unwrap(),
+        dims.len(),
     ));
     dims
 }
@@ -1329,7 +1329,7 @@ fn symbolic_dimensions(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> self::Re
     panic_on_error!(ORT_API.GetSymbolicDimensions.unwrap()(
         tensor_type_info,
         dimensions.as_mut_ptr(),
-        dimensions.len().try_into()?,
+        dimensions.len(),
     ));
     Ok((dimensions.iter())
         .map(|&dimension| unsafe { CStr::from_ptr(dimension) }.to_str())
@@ -1442,7 +1442,7 @@ impl<'d> Value<'d> {
         bail_on_error!(ORT_API.CreateTensorAsOrtValue.unwrap()(
             allocator.raw.as_ptr(),
             shape.as_ptr(),
-            shape.len().try_into()?,
+            shape.len(),
             element_type,
             &mut value,
         ));
@@ -1459,9 +1459,9 @@ impl<'d> Value<'d> {
         bail_on_error!(ORT_API.CreateTensorWithDataAsOrtValue.unwrap()(
             memory_info.raw.as_ptr(),
             data.as_mut_ptr() as *mut c_void,
-            mem::size_of_val(data).try_into()?,
+            mem::size_of_val(data),
             shape.as_ptr(),
-            shape.len().try_into()?,
+            shape.len(),
             T::as_onnx_tensor_element_data_type(),
             &mut value,
         ));
@@ -1505,7 +1505,7 @@ impl<'d> Value<'d> {
         bail_on_error!(ORT_API.TensorAt.unwrap()(
             self.raw,
             indices.as_ptr(),
-            indices.len().try_into()?,
+            indices.len(),
             &mut element as *mut *mut T as *mut *mut c_void,
         ));
         Ok(&*element)
@@ -1521,7 +1521,7 @@ impl<'d> Value<'d> {
         bail_on_error!(ORT_API.TensorAt.unwrap()(
             self.raw,
             indices.as_ptr(),
-            indices.len().try_into()?,
+            indices.len(),
             &mut element as *mut *mut T as *mut *mut c_void,
         ));
         Ok(&mut *element)
@@ -1713,7 +1713,7 @@ impl Allocator {
         let mut ptr = ptr::null_mut::<T>();
         panic_on_error!(ORT_API.AllocatorAlloc.unwrap()(
             self.raw.as_ptr(),
-            mem::size_of::<T>().try_into().unwrap(),
+            mem::size_of::<T>(),
             &mut ptr as *mut *mut T as *mut *mut c_void,
         ));
         ptr
@@ -1805,11 +1805,9 @@ impl<'s> IoBinding<'s> {
         ));
         if !buffer.is_null() {
             unsafe {
-                let count = count.try_into()?;
                 let mut names = Vec::with_capacity(count);
                 let mut ptr = buffer;
                 for &length in slice::from_raw_parts(lengths, count) {
-                    let length = length.try_into()?;
                     let name = str::from_utf8(slice::from_raw_parts(ptr as *const u8, length))?
                         .to_string();
                     names.push(name);
@@ -1841,7 +1839,7 @@ impl<'s> IoBinding<'s> {
         ));
         if !values_ptr.is_null() {
             unsafe {
-                let values_slice = slice::from_raw_parts(values_ptr, count.try_into()?);
+                let values_slice = slice::from_raw_parts(values_ptr, count);
                 let values = (values_slice.iter())
                     .map(|&value| Value { raw: value, phantom: PhantomData })
                     .collect::<Vec<_>>();
@@ -1950,7 +1948,7 @@ impl ArenaCfg {
     ) -> self::Result<Self> {
         let mut arena_cfg = ptr::null_mut::<OrtArenaCfg>();
         panic_on_error!(ORT_API.CreateArenaCfg.unwrap()(
-            max_mem.try_into()?,
+            max_mem,
             arena_extend_strategy,
             initial_chunk_size_bytes,
             max_dead_bytes_per_chunk,
