@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2021-06-03
+
+### Fixed
+
+- Fix `ModelMetadata::{description, domain}` and
+  `ThreadingOptions::set_global_inter_op_num_threads`, which invoke wrong C
+  functions.
+
 ## [0.3.0] - 2021-06-02
 
 ### Changed
@@ -31,7 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support ONNX Runtime v1.5.
 
-[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.3.1...HEAD
+[0.3.1]: https://github.com/furiosa-ai/onnxrt/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/furiosa-ai/onnxrt/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/furiosa-ai/onnxrt/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/furiosa-ai/onnxrt/compare/0.1.0...0.2.0
