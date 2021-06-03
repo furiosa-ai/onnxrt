@@ -633,7 +633,7 @@ impl ModelMetadata {
     pub fn domain(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut domain_ptr = ptr::null_mut::<c_char>();
-        panic_on_error!(ORT_API.ModelMetadataGetGraphName.unwrap()(
+        panic_on_error!(ORT_API.ModelMetadataGetDomain.unwrap()(
             self.raw.as_ptr(),
             allocator,
             &mut domain_ptr,
@@ -649,7 +649,7 @@ impl ModelMetadata {
     pub fn description(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut description_ptr = ptr::null_mut::<c_char>();
-        panic_on_error!(ORT_API.ModelMetadataGetGraphName.unwrap()(
+        panic_on_error!(ORT_API.ModelMetadataGetDescription.unwrap()(
             self.raw.as_ptr(),
             allocator,
             &mut description_ptr,
