@@ -1897,7 +1897,7 @@ impl ThreadingOptions {
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/718ca7f92085bef4b19b1acc71c1e1f3daccde94/include/onnxruntime/core/session/onnxruntime_c_api.h#L1059-L1065)
     pub fn set_global_inter_op_num_threads(&mut self, inter_op_num_threads: i32) -> &mut Self {
-        panic_on_error!(ORT_API.SetGlobalIntraOpNumThreads.unwrap()(
+        panic_on_error!(ORT_API.SetGlobalInterOpNumThreads.unwrap()(
             self.raw.as_ptr(),
             inter_op_num_threads,
         ));
