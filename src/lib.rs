@@ -892,9 +892,9 @@ impl Session {
         output_values: &mut [Value<'_>],
     ) -> self::Result<()> {
         assert_eq!(input_names.len(), input_values.len());
-        assert!(input_names.iter().all(|name| name.ends_with(&[b'0'])));
+        assert!(input_names.iter().all(|name| name.ends_with(&[b'\0'])));
         assert_eq!(output_names.len(), output_values.len());
-        assert!(output_names.iter().all(|name| name.ends_with(&[b'0'])));
+        assert!(output_names.iter().all(|name| name.ends_with(&[b'\0'])));
         unsafe {
             self.run_with_bytes_with_nul_unchecked(
                 run_options,

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix `Session::run_with_bytes_with_nul`, which detects the null character by
+  `b'0'`, not `b'\0'`.
+
 ## [0.4.0] - 2021-07-28
 
 ### Added
