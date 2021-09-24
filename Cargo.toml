@@ -1,6 +1,6 @@
 [package]
 name = "onnxrt"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["FuriosaAI Inc."]
 description = "OnnxRt provides mid-level Rust bindings to the C API for Microsoft's ONNX Runtime."
 license = "MIT OR Apache-2.0"
@@ -8,9 +8,9 @@ readme = "README.md"
 repository = "https://github.com/furiosa-ai/onnxrt"
 keywords = ["onnx", "neuralnetworks", "ffi", "bindings"]
 categories = ["science", "external-ffi-bindings"]
-documentation = "https://furiosa-ai.github.io/onnxrt/0.6.0/onnxrt"
+documentation = "https://furiosa-ai.github.io/onnxrt/0.7.0/onnxrt"
 edition = "2018"
 
 [dependencies]
 once_cell = "1.8.0"
-onnxrt-sys = { git = "https://github.com/furiosa-ai/onnxrt-sys", tag = "0.3.0" }
+onnxrt-sys = { git = "https://github.com/furiosa-ai/onnxrt-sys", tag = "0.4.0" }
