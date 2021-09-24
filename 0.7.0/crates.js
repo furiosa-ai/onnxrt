@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["once_cell","onnxrt","onnxrt_sys"];
