@@ -826,7 +826,9 @@ impl Drop for ModelMetadata {
 #[derive(Debug)]
 pub struct Session {
     raw: NonNull<OrtSession>,
+    #[allow(dead_code)] // Env has to outlive Session.
     env: Arc<Mutex<Env>>,
+    #[allow(dead_code)] // PrepackedWeightsContainer has to outlive Session.
     prepacked_weights_container: Option<Arc<Mutex<PrepackedWeightsContainer>>>,
 }
 
