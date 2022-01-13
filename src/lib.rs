@@ -1,6 +1,6 @@
 //! [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.9.0/include/onnxruntime/core/session/onnxruntime_c_api.h)
 
-#![doc(html_root_url = "https://furiosa-ai.github.io/onnxrt/0.8.0/onnxrt")]
+#![doc(html_root_url = "https://furiosa-ai.github.io/onnxrt/0.9.0/onnxrt")]
 #![warn(rust_2018_idioms)]
 
 #[cfg(target_family = "unix")]
