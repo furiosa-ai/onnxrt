@@ -878,6 +878,24 @@ impl Session {
         Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
     }
 
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/4daa14bc74b5378d5fcb0d6de063a9fa8bd42eac/include/onnxruntime/core/session/onnxruntime_c_api.h#L447)
+    pub fn new_with_model_buffer<B: AsRef<[u8]>>(
+        env: Arc<Mutex<Env>>,
+        model_buffer: B,
+        options: &SessionOptions,
+    ) -> self::Result<Self> {
+        let model_buffer = model_buffer.as_ref();
+        let mut session = ptr::null_mut::<OrtSession>();
+        bail_on_error!(ORT_API.CreateSessionFromArray.unwrap()(
+            env.lock().unwrap().raw.as_ptr(),
+            model_buffer.as_ptr() as *const std::ffi::c_void,
+            model_buffer.len(),
+            options.session_options.as_ptr(),
+            &mut session,
+        ));
+        Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
+    }
+
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.9.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1453-L1468)
     pub fn new_with_model_path_and_prepacked_weights_container<P: AsRef<Path>>(
         env: Arc<Mutex<Env>>,
