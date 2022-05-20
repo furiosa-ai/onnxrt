@@ -1,6 +1,6 @@
-//! [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h)
+//! [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h)
 
-#![doc(html_root_url = "https://furiosa-ai.github.io/onnxrt/0.11.0/onnxrt")]
+#![doc(html_root_url = "https://furiosa-ai.github.io/onnxrt/0.12.0/onnxrt")]
 #![warn(rust_2018_idioms)]
 
 #[cfg(target_family = "unix")]
@@ -145,7 +145,7 @@ pub struct Env {
 }
 
 impl Env {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L592-L600)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L607-L615)
     pub fn new(logging_level: OrtLoggingLevel, log_id: &str) -> self::Result<Self> {
         let mut env = ptr::null_mut::<OrtEnv>();
         let log_id = CString::new(log_id)?;
@@ -153,7 +153,7 @@ impl Env {
         Ok(Self { raw: NonNull::new(env).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1923-L1937)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1938-L1952)
     pub fn new_with_global_thread_pools(
         logging_level: OrtLoggingLevel,
         log_id: &str,
@@ -170,7 +170,7 @@ impl Env {
         Ok(Self { raw: NonNull::new(env).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L602-L614)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L617-L629)
     pub fn new_with_custom_logger<T>(
         logging_function: OrtLoggingFunction,
         logger_param: Option<&'static mut T>,
@@ -191,7 +191,7 @@ impl Env {
         Ok(Self { raw: NonNull::new(env).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2365-L2381)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2380-L2396)
     pub fn new_with_custom_logger_and_global_thread_pools<T>(
         logging_function: OrtLoggingFunction,
         logger_param: Option<&'static mut T>,
@@ -214,22 +214,22 @@ impl Env {
         Ok(Self { raw: NonNull::new(env).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L616-L623)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L631-L638)
     pub fn enable_telemetry_events(&self) {
         panic_on_error!(ORT_API.EnableTelemetryEvents.unwrap()(self.raw.as_ptr()));
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L624-L631)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L639-L646)
     pub fn disable_telemetry_events(&self) {
         panic_on_error!(ORT_API.DisableTelemetryEvents.unwrap()(self.raw.as_ptr()));
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2267-L2278)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2282-L2293)
     pub fn set_language_projection(&self, projection: OrtLanguageProjection) {
         panic_on_error!(ORT_API.SetLanguageProjection.unwrap()(self.raw.as_ptr(), projection));
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2250-L2265)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2265-L2280)
     pub fn create_and_register_allocator(
         &mut self,
         memory_info: &MemoryInfo,
@@ -243,7 +243,7 @@ impl Env {
         Ok(())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2792-L2807)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2807-L2822)
     pub fn register_allocator(&mut self, allocator: &mut Allocator) -> self::Result<()> {
         bail_on_error!(ORT_API.RegisterAllocator.unwrap()(
             self.raw.as_ptr(),
@@ -252,7 +252,7 @@ impl Env {
         Ok(())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2809-L2820)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2824-L2835)
     pub fn unregister_allocator(&mut self, memory_info: &MemoryInfo) -> self::Result<()> {
         bail_on_error!(ORT_API.UnregisterAllocator.unwrap()(
             self.raw.as_ptr(),
@@ -263,7 +263,7 @@ impl Env {
 }
 
 impl Drop for Env {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1684)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1699)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseEnv.unwrap()(self.raw.as_ptr());
@@ -281,14 +281,14 @@ pub struct RunOptions {
 }
 
 impl RunOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1038-L1044)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1053-L1059)
     pub fn new() -> Self {
         let mut options = ptr::null_mut::<OrtRunOptions>();
         panic_on_error!(ORT_API.CreateRunOptions.unwrap()(&mut options));
         Self { raw: NonNull::new(options).unwrap() }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1046-L1055)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1061-L1070)
     pub fn set_log_verbosity_level(&mut self, level: i32) -> &mut Self {
         panic_on_error!(ORT_API.RunOptionsSetRunLogVerbosityLevel.unwrap()(
             self.raw.as_ptr(),
@@ -297,7 +297,7 @@ impl RunOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1077-L1087)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1092-L1102)
     pub fn log_verbosity_level(&self) -> i32 {
         let mut level = 0;
         panic_on_error!(ORT_API.RunOptionsGetRunLogVerbosityLevel.unwrap()(
@@ -307,7 +307,7 @@ impl RunOptions {
         level
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1057-L1064)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1072-L1079)
     pub fn set_log_severity_level(&mut self, level: i32) -> &mut Self {
         panic_on_error!(ORT_API.RunOptionsSetRunLogSeverityLevel.unwrap()(
             self.raw.as_ptr(),
@@ -316,7 +316,7 @@ impl RunOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1089-L1096)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1104-L1111)
     pub fn log_severity_level(&self) -> i32 {
         let mut level = 0;
         panic_on_error!(ORT_API.RunOptionsGetRunLogSeverityLevel.unwrap()(
@@ -326,33 +326,33 @@ impl RunOptions {
         level
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1066-L1075)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1081-L1090)
     pub fn set_tag(&mut self, tag: &str) -> self::Result<&mut Self> {
         let tag = CString::new(tag)?;
         panic_on_error!(ORT_API.RunOptionsSetRunTag.unwrap()(self.raw.as_ptr(), tag.as_ptr()));
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1098-L1109)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1113-L1124)
     pub fn tag(&self) -> self::Result<&str> {
         let mut tag = ptr::null::<c_char>();
         panic_on_error!(ORT_API.RunOptionsGetRunTag.unwrap()(self.raw.as_ptr(), &mut tag));
         Ok(unsafe { CStr::from_ptr(tag) }.to_str()?)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1111-L1119)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1126-L1134)
     pub fn set_terminate(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.RunOptionsSetTerminate.unwrap()(self.raw.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1121-1129)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1136-L1144)
     pub fn unset_terminate(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.RunOptionsUnsetTerminate.unwrap()(self.raw.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2614-L2627)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2629-L2642)
     pub fn set<K: AsRef<str>, V: AsRef<str>>(
         &mut self,
         config_key: K,
@@ -368,7 +368,7 @@ impl RunOptions {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2614-L2627)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2629-L2642)
     pub fn set_with_c_str<K: AsRef<CStr>, V: AsRef<CStr>>(
         &mut self,
         config_key: K,
@@ -382,7 +382,7 @@ impl RunOptions {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2614-L2627)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2629-L2642)
     pub fn set_with_bytes_with_nul(
         &mut self,
         config_key: &[u8],
@@ -393,7 +393,7 @@ impl RunOptions {
         unsafe { self.set_with_bytes_with_nul_unchecked(config_key, config_value) }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2614-L2627)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2629-L2642)
     ///
     /// # Safety
     ///
@@ -409,7 +409,7 @@ impl RunOptions {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2614-L2627)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2629-L2642)
     ///
     /// # Safety
     ///
@@ -435,7 +435,7 @@ impl Default for RunOptions {
 }
 
 impl Drop for RunOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1704)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1719)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseRunOptions.unwrap()(self.raw.as_ptr());
@@ -449,14 +449,14 @@ pub struct SessionOptions {
 }
 
 impl SessionOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L695-L710)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L710-L725)
     pub fn new() -> Self {
         let mut session_options = ptr::null_mut::<OrtSessionOptions>();
         panic_on_error!(ORT_API.CreateSessionOptions.unwrap()(&mut session_options));
         Self { session_options: NonNull::new(session_options).unwrap() }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L845-L858)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L860-L873)
     pub fn set_intra_op_num_threads(&mut self, intra_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetIntraOpNumThreads.unwrap()(
             self.session_options.as_ptr(),
@@ -465,7 +465,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L860-L872)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L875-L887)
     pub fn set_inter_op_num_threads(&mut self, inter_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetInterOpNumThreads.unwrap()(
             self.session_options.as_ptr(),
@@ -474,7 +474,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L834-L843)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L849-L858)
     pub fn set_graph_optimization_level(
         &mut self,
         graph_optimization_level: GraphOptimizationLevel,
@@ -486,19 +486,19 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L787-L795)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L802-L810)
     pub fn enable_cpu_mem_arena(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.EnableCpuMemArena.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L797-L803)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L812-L818)
     pub fn disable_cpu_mem_arena(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.DisableCpuMemArena.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L712-L720)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L727-L735)
     pub fn set_optimized_model_file_path<P: AsRef<Path>>(
         &mut self,
         optimized_model_file_path: P,
@@ -517,7 +517,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L745-L752)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L760-L767)
     pub fn enable_profiling<P: AsRef<Path>>(
         &mut self,
         profile_file_prefix: P,
@@ -536,25 +536,25 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L754-L760)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L769-L775)
     pub fn disable_profiling(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.DisableProfiling.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L762-L775)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L777-L790)
     pub fn enable_mem_pattern(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.EnableMemPattern.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L777-L785)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L792-L800)
     pub fn disable_mem_pattern(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.DisableMemPattern.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L732-L743)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L747-L758)
     pub fn set_execution_mode(&mut self, execution_mode: ExecutionMode) -> &mut Self {
         panic_on_error!(ORT_API.SetSessionExecutionMode.unwrap()(
             self.session_options.as_ptr(),
@@ -563,7 +563,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L805-L812)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L820-L827)
     pub fn set_log_id(&mut self, log_id: &str) -> self::Result<&mut Self> {
         let log_id = CString::new(log_id)?;
         panic_on_error!(ORT_API.SetSessionLogId.unwrap()(
@@ -573,7 +573,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L814-L823)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L829-L838)
     pub fn set_log_verbosity_level(&mut self, level: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetSessionLogVerbosityLevel.unwrap()(
             self.session_options.as_ptr(),
@@ -582,7 +582,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L825-L832)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L840-L847)
     pub fn set_log_severity_level(&mut self, level: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetSessionLogSeverityLevel.unwrap()(
             self.session_options.as_ptr(),
@@ -591,19 +591,19 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1943-L1952)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1958-L1967)
     pub fn disable_per_session_threads(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.DisablePerSessionThreads.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2780-L2786)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2795-L2801)
     pub fn enable_ort_custom_ops(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.EnableOrtCustomOps.unwrap()(self.session_options.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2066-L2079)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2081-L2094)
     pub fn add_session_config_entry(
         &mut self,
         config_key: &str,
@@ -619,7 +619,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1469-L1481)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1484-L1496)
     pub fn add_free_dimension_override(
         &mut self,
         dim_denotation: &str,
@@ -634,7 +634,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1989-L1998)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2004-L2013)
     pub fn add_free_dimension_override_by_name(
         &mut self,
         dim_name: &str,
@@ -649,7 +649,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2344-L2359)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2359-L2374)
     pub fn add_initializer<'s, 'v: 's>(
         &'s mut self,
         name: &str,
@@ -664,7 +664,7 @@ impl SessionOptions {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3108-L3115)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3128-L3135)
     pub fn set_custom_create_thread_fn(
         &mut self,
         custom_create_thread_fn: OrtCustomCreateThreadFn,
@@ -676,7 +676,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3117-L3124)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3137-L3144)
     #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn set_custom_thread_creation_options(
         &mut self,
@@ -689,7 +689,7 @@ impl SessionOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3126-L3133)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3146-L3153)
     pub fn set_custom_join_thread_fn(
         &mut self,
         custom_join_thread_fn: OrtCustomJoinThreadFn,
@@ -703,7 +703,7 @@ impl SessionOptions {
 }
 
 impl Clone for SessionOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L722-L730)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L737-L745)
     fn clone(&self) -> Self {
         let mut session_options = ptr::null_mut::<OrtSessionOptions>();
         panic_on_error!(ORT_API.CloneSessionOptions.unwrap()(
@@ -721,7 +721,7 @@ impl Default for SessionOptions {
 }
 
 impl Drop for SessionOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1716)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1731)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseSessionOptions.unwrap()(self.session_options.as_ptr());
@@ -735,7 +735,7 @@ pub struct ModelMetadata {
 }
 
 impl ModelMetadata {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1851-L1860)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1866-L1875)
     pub fn producer_name(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut name_ptr = ptr::null_mut::<c_char>();
@@ -751,7 +751,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1862-L1871)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1877-L1886)
     pub fn graph_name(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut name_ptr = ptr::null_mut::<c_char>();
@@ -767,7 +767,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2464-L2476)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2479-L2491)
     pub fn graph_description(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut description_ptr = ptr::null_mut::<c_char>();
@@ -783,7 +783,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1873-L1882)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1888-L1897)
     pub fn domain(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut domain_ptr = ptr::null_mut::<c_char>();
@@ -799,7 +799,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1884-L1893)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1899-L1908)
     pub fn description(&self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut description_ptr = ptr::null_mut::<c_char>();
@@ -815,7 +815,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1971-L1983)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1986-L1998)
     pub fn custom_metadata_map_keys(&self, allocator: &mut Allocator) -> self::Result<Vec<String>> {
         let allocator = allocator.raw.as_ptr();
         let mut keys_ptr = ptr::null_mut::<*mut c_char>();
@@ -842,7 +842,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1895-L1906)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1910-L1921)
     pub fn lookup_custom_metadata_map(
         &self,
         allocator: &mut Allocator,
@@ -868,7 +868,7 @@ impl ModelMetadata {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1908-L1915)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1923-L1930)
     pub fn version(&self) -> i64 {
         let mut version = 0;
         panic_on_error!(ORT_API.ModelMetadataGetVersion.unwrap()(self.raw.as_ptr(), &mut version));
@@ -877,7 +877,7 @@ impl ModelMetadata {
 }
 
 impl Drop for ModelMetadata {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1917)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1932)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseModelMetadata.unwrap()(self.raw.as_ptr());
@@ -895,7 +895,7 @@ pub struct Session {
 }
 
 impl Session {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L637-L652)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L652-L667)
     pub fn new_with_model_path<P: AsRef<Path>>(
         env: Arc<Mutex<Env>>,
         model_path: P,
@@ -916,7 +916,7 @@ impl Session {
         Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2657-L2676)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2672-L2691)
     pub fn new_with_model_path_and_prepacked_weights_container<P: AsRef<Path>>(
         env: Arc<Mutex<Env>>,
         model_path: P,
@@ -943,7 +943,7 @@ impl Session {
         })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L654-L665)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L669-L680)
     pub fn new_with_model_data(
         env: Arc<Mutex<Env>>,
         model_data: &[u8],
@@ -960,7 +960,7 @@ impl Session {
         Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2678-L2699)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2693-L2714)
     pub fn new_with_model_data_and_prepacked_weights_container(
         env: Arc<Mutex<Env>>,
         model_data: &[u8],
@@ -983,7 +983,7 @@ impl Session {
         })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     pub fn run<I: AsRef<str>, O: AsRef<str>>(
         &mut self,
         run_options: Option<&RunOptions>,
@@ -999,7 +999,7 @@ impl Session {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     ///
     /// # Safety
     ///
@@ -1030,7 +1030,7 @@ impl Session {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     pub fn run_with_c_str<I: AsRef<CStr>, O: AsRef<CStr>>(
         &mut self,
         run_options: Option<&RunOptions>,
@@ -1052,7 +1052,7 @@ impl Session {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     ///
     /// # Safety
     ///
@@ -1079,7 +1079,7 @@ impl Session {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     pub fn run_with_bytes_with_nul(
         &mut self,
         run_options: Option<&RunOptions>,
@@ -1103,7 +1103,7 @@ impl Session {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     ///
     /// # Safety
     ///
@@ -1131,7 +1131,7 @@ impl Session {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L667-L689)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L682-L704)
     ///
     /// # Safety
     ///
@@ -1160,7 +1160,7 @@ impl Session {
         Ok(())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2104-L2114)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2119-L2129)
     pub fn run_with_binding(
         &mut self,
         run_options: &RunOptions,
@@ -1174,21 +1174,21 @@ impl Session {
         Ok(())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L933-L944)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L948-L959)
     pub fn input_count(&self) -> self::Result<usize> {
         let mut count = 0;
         bail_on_error!(ORT_API.SessionGetInputCount.unwrap()(self.raw.as_ptr(), &mut count));
         Ok(count)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L946-L957)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L961-L972)
     pub fn output_count(&self) -> self::Result<usize> {
         let mut count = 0;
         bail_on_error!(ORT_API.SessionGetOutputCount.unwrap()(self.raw.as_ptr(), &mut count));
         Ok(count)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L959-L968)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L974-L983)
     pub fn overridable_initializer_count(&self) -> self::Result<usize> {
         let mut count = 0;
         bail_on_error!(ORT_API.SessionGetOverridableInitializerCount.unwrap()(
@@ -1202,7 +1202,7 @@ impl Session {
         self.input_name_using_allocator(index, &mut ALLOCATOR_WITH_DEFAULT_OPTIONS.lock().unwrap())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1000-L1009)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1015-L1024)
     pub fn input_name_using_allocator(
         &self,
         index: usize,
@@ -1227,7 +1227,7 @@ impl Session {
         self.output_name_using_allocator(index, &mut ALLOCATOR_WITH_DEFAULT_OPTIONS.lock().unwrap())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1011-L1020)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1026-L1035)
     pub fn output_name_using_allocator(
         &self,
         index: usize,
@@ -1255,7 +1255,7 @@ impl Session {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1022-L1032)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1037-L1047)
     pub fn overridable_initializer_name_using_allocator(
         &self,
         index: usize,
@@ -1327,7 +1327,7 @@ impl Session {
             .map(move |i| self.overridable_initializer_name_using_allocator(i, allocator)))
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1826-L1836)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1841-L1851)
     pub fn end_profiling(&mut self, allocator: &mut Allocator) -> self::Result<String> {
         let allocator = allocator.raw.as_ptr();
         let mut profile_ptr = ptr::null_mut::<c_char>();
@@ -1343,7 +1343,7 @@ impl Session {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2284-L2293)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2299-L2308)
     pub fn profiling_start_time_ns(&self) -> u64 {
         let mut time = 0;
         panic_on_error!(ORT_API.SessionGetProfilingStartTimeNs.unwrap()(
@@ -1353,7 +1353,7 @@ impl Session {
         time
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1838-L1845)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1853-L1860)
     pub fn model_metadata(&self) -> self::Result<ModelMetadata> {
         let mut model_metadata = ptr::null_mut::<OrtModelMetadata>();
         bail_on_error!(ORT_API.SessionGetModelMetadata.unwrap()(
@@ -1363,7 +1363,7 @@ impl Session {
         Ok(ModelMetadata { raw: NonNull::new(model_metadata).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L970-L978)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L985-L993)
     pub fn input_type_info(&self, index: usize) -> self::Result<TypeInfo> {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetInputTypeInfo.unwrap()(
@@ -1374,7 +1374,7 @@ impl Session {
         Ok(TypeInfo { raw: NonNull::new(type_info).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L980-L988)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L995-L1003)
     pub fn output_type_info(&self, index: usize) -> self::Result<TypeInfo> {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetOutputTypeInfo.unwrap()(
@@ -1385,7 +1385,7 @@ impl Session {
         Ok(TypeInfo { raw: NonNull::new(type_info).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L990-L998)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1005-L1013)
     pub fn overridable_initializer_type_info(&self, index: usize) -> self::Result<TypeInfo> {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.SessionGetOverridableInitializerTypeInfo.unwrap()(
@@ -1398,7 +1398,7 @@ impl Session {
 }
 
 impl Drop for Session {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1696)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1711)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseSession.unwrap()(self.raw.as_ptr());
@@ -1417,14 +1417,14 @@ pub struct TensorTypeAndShapeInfo {
 }
 
 impl TensorTypeAndShapeInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1260-L1266)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1275-L1281)
     pub fn new() -> Self {
         let mut tensor_type_info = ptr::null_mut::<OrtTensorTypeAndShapeInfo>();
         panic_on_error!(ORT_API.CreateTensorTypeAndShapeInfo.unwrap()(&mut tensor_type_info));
         Self { raw: NonNull::new(tensor_type_info).unwrap() }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1268-L1275)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1283-L1290)
     pub fn set_element_type(&mut self, typ: ONNXTensorElementDataType) -> &mut Self {
         panic_on_error!(ORT_API.SetTensorElementType.unwrap()(self.raw.as_ptr(), typ));
         self
@@ -1438,7 +1438,7 @@ impl TensorTypeAndShapeInfo {
         element_count(unsafe { self.raw.as_ref() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1277-L1285)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1292-L1300)
     pub fn set_dimensions(&mut self, dims: &[i64]) -> &mut Self {
         panic_on_error!(ORT_API.SetDimensions.unwrap()(
             self.raw.as_ptr(),
@@ -1468,7 +1468,7 @@ impl Default for TensorTypeAndShapeInfo {
 }
 
 impl Drop for TensorTypeAndShapeInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1712)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1727)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseTensorTypeAndShapeInfo.unwrap()(self.raw.as_ptr());
@@ -1503,14 +1503,14 @@ impl<'a> UnownedTensorTypeAndShapeInfo<'a> {
     }
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1287-L1297)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1302-L1312)
 fn element_type(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> ONNXTensorElementDataType {
     let mut typ = ONNX_TENSOR_ELEMENT_DATA_TYPE_UNDEFINED;
     panic_on_error!(ORT_API.GetTensorElementType.unwrap()(tensor_type_info, &mut typ));
     typ
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1332-L1348)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1347-L1363)
 fn element_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> i64 {
     let mut count = 0;
     panic_on_error!(ORT_API.GetTensorShapeElementCount.unwrap()(
@@ -1521,14 +1521,14 @@ fn element_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> i64 {
     count
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1299-L1308)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1314-L1323)
 fn dimensions_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> usize {
     let mut count = 0;
     panic_on_error!(ORT_API.GetDimensionsCount.unwrap()(tensor_type_info, &mut count));
     count
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1310-L1319)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1325-L1334)
 fn dimensions(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> Vec<i64> {
     let mut dims = vec![0; dimensions_count(tensor_type_info)];
     panic_on_error!(ORT_API.GetDimensions.unwrap()(
@@ -1539,7 +1539,7 @@ fn dimensions(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> Vec<i64> {
     dims
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1321-L1330)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1336-L1345)
 fn symbolic_dimensions(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> self::Result<Vec<&str>> {
     let mut dimensions = vec![ptr::null::<c_char>(); dimensions_count(tensor_type_info)];
     panic_on_error!(ORT_API.GetSymbolicDimensions.unwrap()(
@@ -1558,7 +1558,7 @@ pub struct TypeInfo {
 }
 
 impl TypeInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1237-L1245)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1252-L1260)
     pub fn cast_to_tensor_type_info(&self) -> Option<UnownedTensorTypeAndShapeInfo<'_>> {
         let mut tensor_info = ptr::null::<OrtTensorTypeAndShapeInfo>();
         panic_on_error!(ORT_API.CastTypeInfoToTensorInfo.unwrap()(
@@ -1572,14 +1572,14 @@ impl TypeInfo {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1247-L1254)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1262-L1269)
     pub fn onnx_type(&self) -> ONNXType {
         let mut typ = ONNX_TYPE_UNKNOWN;
         panic_on_error!(ORT_API.GetOnnxTypeFromTypeInfo.unwrap()(self.raw.as_ptr(), &mut typ));
         typ
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1726-L1739)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1741-L1754)
     pub fn denotation(&self) -> self::Result<&str> {
         let mut denotation = ptr::null::<c_char>();
         let mut length = 0;
@@ -1593,7 +1593,7 @@ impl TypeInfo {
 }
 
 impl Drop for TypeInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1708)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1723)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseTypeInfo.unwrap()(self.raw.as_ptr());
@@ -1648,7 +1648,7 @@ impl<'d> Value<'d> {
         )
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1135-L1148)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1150-L1163)
     pub fn new_tensor_using_allocator(
         allocator: &mut Allocator,
         shape: &[i64],
@@ -1665,7 +1665,7 @@ impl<'d> Value<'d> {
         Ok(Value { raw: value, phantom: PhantomData })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1150-L1167)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1165-L1182)
     pub fn new_tensor_with_data<T: AsONNXTensorElementDataType>(
         memory_info: &MemoryInfo,
         data: &'d mut [T],
@@ -1684,14 +1684,14 @@ impl<'d> Value<'d> {
         Ok(Value { raw: value, phantom: PhantomData })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1169-1176)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1184-L1191)
     pub fn is_tensor(&self) -> bool {
         let mut result = 0;
         panic_on_error!(ORT_API.IsTensor.unwrap()(self.raw, &mut result));
         result != 0
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1178-L1188)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1193-L1203)
     pub fn tensor_data<T>(&self) -> self::Result<*const T> {
         let mut data = ptr::null_mut::<T>();
         bail_on_error!(ORT_API.GetTensorMutableData.unwrap()(
@@ -1701,7 +1701,7 @@ impl<'d> Value<'d> {
         Ok(data)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1178-L1188)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1193-L1203)
     pub fn tensor_data_mut<T>(&mut self) -> self::Result<*mut T> {
         let mut data = ptr::null_mut::<T>();
         bail_on_error!(ORT_API.GetTensorMutableData.unwrap()(
@@ -1711,7 +1711,7 @@ impl<'d> Value<'d> {
         Ok(data)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2230-L2244)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2245-L2259)
     ///
     /// # Safety
     ///
@@ -1727,7 +1727,7 @@ impl<'d> Value<'d> {
         Ok(&*element)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2230-L2244)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2245-L2259)
     ///
     /// # Safety
     ///
@@ -1743,11 +1743,11 @@ impl<'d> Value<'d> {
         Ok(&mut *element)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1363-L1370)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1378-L1385)
     pub fn type_info(&self) -> self::Result<Option<TypeInfo>> {
         let mut type_info = ptr::null_mut::<OrtTypeInfo>();
         bail_on_error!(ORT_API.GetTypeInfo.unwrap()(self.raw, &mut type_info));
-        // https://github.com/microsoft/onnxruntime/blob/v1.10.0/onnxruntime/core/framework/tensor_type_and_shape.cc#L326-L332
+        // https://github.com/microsoft/onnxruntime/blob/v1.11.0/onnxruntime/core/framework/tensor_type_and_shape.cc#L328-L334
         //
         // > // TODO: This is consistent with the previous implementation but inconsistent with
         // > // GetValueType which returns ONNX_TYPE_UNKNOWN if v->Type() is null. Should we
@@ -1764,28 +1764,28 @@ impl<'d> Value<'d> {
         })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1354-L1361)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1369-L1376)
     pub fn tensor_type_info(&self) -> self::Result<TensorTypeAndShapeInfo> {
         let mut tensor_type_info = ptr::null_mut::<OrtTensorTypeAndShapeInfo>();
         bail_on_error!(ORT_API.GetTensorTypeAndShape.unwrap()(self.raw, &mut tensor_type_info));
         Ok(TensorTypeAndShapeInfo { raw: NonNull::new(tensor_type_info).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3081-L3087)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3101-L3107)
     pub fn tensor_memory_info(&self) -> UnownedMemoryInfo<'_> {
         let mut memory_info = ptr::null::<OrtMemoryInfo>();
         panic_on_error!(ORT_API.GetTensorMemoryInfo.unwrap()(self.raw, &mut memory_info));
         UnownedMemoryInfo { raw: unsafe { &*memory_info } }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1372-L1379)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1387-L1394)
     pub fn value_type(&self) -> self::Result<ONNXType> {
         let mut value_type = ONNX_TYPE_UNKNOWN;
         bail_on_error!(ORT_API.GetValueType.unwrap()(self.raw, &mut value_type));
         Ok(value_type)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3051-L3063)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3069-L3081)
     pub fn has_value(&self) -> bool {
         let mut has_value = 0;
         panic_on_error!(ORT_API.HasValue.unwrap()(self.raw, &mut has_value));
@@ -1800,7 +1800,7 @@ impl<'d> Default for Value<'d> {
 }
 
 impl<'d> Drop for Value<'d> {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1700)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1715)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseValue.unwrap()(self.raw);
@@ -1814,7 +1814,7 @@ pub struct MemoryInfo {
 }
 
 impl MemoryInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1385-L1396)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1400-L1411)
     pub fn new(
         name: &str,
         allocator_type: OrtAllocatorType,
@@ -1833,7 +1833,7 @@ impl MemoryInfo {
         Ok(MemoryInfo { raw: NonNull::new(memory_info).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1398-L1409)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1413-L1424)
     pub fn new_for_cpu(allocator_type: OrtAllocatorType, memory_type: OrtMemType) -> Self {
         let mut memory_info = ptr::null_mut::<OrtMemoryInfo>();
         panic_on_error!(ORT_API.CreateCpuMemoryInfo.unwrap()(
@@ -1862,7 +1862,7 @@ impl MemoryInfo {
 }
 
 impl Drop for MemoryInfo {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1692)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1707)
     fn drop(&mut self) {
         unsafe {
             ORT_API.ReleaseMemoryInfo.unwrap()(self.raw.as_ptr());
@@ -1917,35 +1917,35 @@ impl PartialEq<MemoryInfo> for UnownedMemoryInfo<'_> {
     }
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1423-L1430)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1438-L1445)
 fn memory_info_allocator_name(memory_info: &OrtMemoryInfo) -> self::Result<&str> {
     let mut name = ptr::null::<c_char>();
     panic_on_error!(ORT_API.MemoryInfoGetName.unwrap()(memory_info, &mut name));
     Ok(unsafe { CStr::from_ptr(name) }.to_str()?)
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1440-L1442)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1455-L1457)
 fn memory_info_allocator_type(memory_info: &OrtMemoryInfo) -> OrtAllocatorType {
     let mut allocator_type = OrtAllocatorType::OrtInvalidAllocator;
     panic_on_error!(ORT_API.MemoryInfoGetType.unwrap()(memory_info, &mut allocator_type));
     allocator_type
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1432-L1434)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1447-L1449)
 fn memory_info_device_id(memory_info: &OrtMemoryInfo) -> i32 {
     let mut device_id = 0;
     panic_on_error!(ORT_API.MemoryInfoGetId.unwrap()(memory_info, &mut device_id));
     device_id
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1436-L1438)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1451-L1453)
 fn memory_info_memory_type(memory_info: &OrtMemoryInfo) -> OrtMemType {
     let mut memory_type = OrtMemTypeDefault;
     panic_on_error!(ORT_API.MemoryInfoGetMemType.unwrap()(memory_info, &mut memory_type));
     memory_type
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1411-L1421)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1426-L1436)
 fn memory_info_is_equal(lhs: &OrtMemoryInfo, rhs: &OrtMemoryInfo) -> bool {
     let mut is_equal = 0;
     panic_on_error!(ORT_API.CompareMemoryInfo.unwrap()(lhs, rhs, &mut is_equal));
@@ -1958,7 +1958,7 @@ pub struct Allocator {
 }
 
 impl Allocator {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2085-L2094)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2100-L2109)
     pub fn new(session: &Session, memory_info: &MemoryInfo) -> self::Result<Self> {
         let mut allocator = ptr::null_mut::<OrtAllocator>();
         bail_on_error!(ORT_API.CreateAllocator.unwrap()(
@@ -1969,7 +1969,7 @@ impl Allocator {
         Ok(Self { raw: NonNull::new(allocator).unwrap() })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1448-L1449)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1463-L1464)
     pub fn alloc<T>(&mut self) -> *mut T {
         let mut ptr = ptr::null_mut::<T>();
         panic_on_error!(ORT_API.AllocatorAlloc.unwrap()(
@@ -1980,7 +1980,7 @@ impl Allocator {
         ptr
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1450-L1451)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1465-L1466)
     ///
     /// # Safety
     ///
@@ -1989,7 +1989,7 @@ impl Allocator {
         panic_on_error!(ORT_API.AllocatorFree.unwrap()(self.raw.as_ptr(), ptr as *mut c_void));
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1452-L1453)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1467-L1468)
     pub fn memory_info(&self) -> UnownedMemoryInfo<'_> {
         let mut memory_info = ptr::null::<OrtMemoryInfo>();
         panic_on_error!(ORT_API.AllocatorGetInfo.unwrap()(self.raw.as_ptr(), &mut memory_info));
@@ -1998,7 +1998,7 @@ impl Allocator {
 }
 
 impl Drop for Allocator {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2096-L2098)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2111-L2113)
     fn drop(&mut self) {
         unsafe { ORT_API.ReleaseAllocator.unwrap()(self.raw.as_ptr()) }
     }
@@ -2015,28 +2015,28 @@ pub struct IoBinding<'s> {
 }
 
 impl<'s> IoBinding<'s> {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2116-L2127)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2131-L2142)
     pub fn new(session: &'s mut Session) -> self::Result<Self> {
         let mut io_binding = ptr::null_mut::<OrtIoBinding>();
         bail_on_error!(ORT_API.CreateIoBinding.unwrap()(session.raw.as_ptr(), &mut io_binding));
         Ok(Self { raw: NonNull::new(io_binding).unwrap(), phantom: PhantomData })
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2137-L2147)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2152-L2162)
     pub fn bind_input(&mut self, name: &str, value: &Value<'_>) -> self::Result<&mut Self> {
         let name = CString::new(name)?;
         bail_on_error!(ORT_API.BindInput.unwrap()(self.raw.as_ptr(), name.as_ptr(), value.raw));
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2149-L2159)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2164-L2174)
     pub fn bind_output(&mut self, name: &str, value: &Value<'_>) -> self::Result<&mut Self> {
         let name = CString::new(name)?;
         panic_on_error!(ORT_API.BindOutput.unwrap()(self.raw.as_ptr(), name.as_ptr(), value.raw));
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2161-L2176)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2176-L2191)
     pub fn bind_output_to_device(
         &mut self,
         name: &str,
@@ -2051,7 +2051,7 @@ impl<'s> IoBinding<'s> {
         Ok(self)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2178-L2196)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2193-L2211)
     pub fn bound_output_names(&self, allocator: &mut Allocator) -> self::Result<Vec<String>> {
         let allocator = allocator.raw.as_ptr();
         let mut buffer = ptr::null_mut::<c_char>();
@@ -2084,7 +2084,7 @@ impl<'s> IoBinding<'s> {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2198-L2216)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2213-L2231)
     pub fn bound_output_values(
         &self,
         allocator: &mut Allocator,
@@ -2112,27 +2112,27 @@ impl<'s> IoBinding<'s> {
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2218-L2220)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2233-L2235)
     pub fn clear_bound_inputs(&mut self) {
         unsafe {
             ORT_API.ClearBoundInputs.unwrap()(self.raw.as_ptr());
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2222-L2224)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2237-L2239)
     pub fn clear_bound_outputs(&mut self) {
         unsafe {
             ORT_API.ClearBoundOutputs.unwrap()(self.raw.as_ptr());
         }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3166-L3174)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3186-L3194)
     pub fn synchronize_bound_inputs(&mut self) -> self::Result<()> {
         bail_on_error!(ORT_API.SynchronizeBoundInputs.unwrap()(self.raw.as_ptr()));
         Ok(())
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3176-L3184)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3196-L3204)
     pub fn synchronize_bound_outputs(&mut self) -> self::Result<()> {
         bail_on_error!(ORT_API.SynchronizeBoundOutputs.unwrap()(self.raw.as_ptr()));
         Ok(())
@@ -2140,7 +2140,7 @@ impl<'s> IoBinding<'s> {
 }
 
 impl<'s> Drop for IoBinding<'s> {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2133-L2135)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2148-L2150)
     fn drop(&mut self) {
         unsafe { ORT_API.ReleaseIoBinding.unwrap()(self.raw.as_ptr()) }
     }
@@ -2152,14 +2152,14 @@ pub struct ThreadingOptions {
 }
 
 impl ThreadingOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1958-L1963)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1973-L1978)
     pub fn new() -> Self {
         let mut threading_options = ptr::null_mut::<OrtThreadingOptions>();
         panic_on_error!(ORT_API.CreateThreadingOptions.unwrap()(&mut threading_options));
         Self { raw: NonNull::new(threading_options).unwrap() }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2299-L2310)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2314-L2325)
     pub fn set_global_intra_op_num_threads(&mut self, intra_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetGlobalIntraOpNumThreads.unwrap()(
             self.raw.as_ptr(),
@@ -2168,7 +2168,7 @@ impl ThreadingOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2312-L2323)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2327-L2338)
     pub fn set_global_inter_op_num_threads(&mut self, inter_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetGlobalInterOpNumThreads.unwrap()(
             self.raw.as_ptr(),
@@ -2177,7 +2177,7 @@ impl ThreadingOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2325-L2338)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2340-L2353)
     pub fn set_global_spin_control(&mut self, allow_spinning: bool) -> &mut Self {
         panic_on_error!(ORT_API.SetGlobalSpinControl.unwrap()(
             self.raw.as_ptr(),
@@ -2186,13 +2186,13 @@ impl ThreadingOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2427-L2437)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2442-L2452)
     pub fn set_global_denormal_as_zero(&mut self) -> &mut Self {
         panic_on_error!(ORT_API.SetGlobalDenormalAsZero.unwrap()(self.raw.as_ptr()));
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3136-L3145)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3156-L3165)
     pub fn set_global_custom_create_thread_fn(
         &mut self,
         custom_create_thread_fn: OrtCustomCreateThreadFn,
@@ -2204,7 +2204,7 @@ impl ThreadingOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3147-L3154)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3167-L3174)
     #[allow(clippy::not_unsafe_ptr_arg_deref)]
     pub fn set_global_custom_thread_creation_options(
         &mut self,
@@ -2217,7 +2217,7 @@ impl ThreadingOptions {
         self
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3156-L3163)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3176-L3183)
     pub fn set_global_custom_join_thread_fn(
         &mut self,
         custom_join_thread_fn: OrtCustomJoinThreadFn,
@@ -2237,7 +2237,7 @@ impl Default for ThreadingOptions {
 }
 
 impl Drop for ThreadingOptions {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1965)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L1980)
     fn drop(&mut self) {
         unsafe { ORT_API.ReleaseThreadingOptions.unwrap()(self.raw.as_ptr()) }
     }
@@ -2249,7 +2249,7 @@ pub struct ArenaCfg {
 }
 
 impl ArenaCfg {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2579-L2608)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2594-L2623)
     pub fn new<K: AsRef<str>>(
         arena_config_keys: &[K],
         arena_config_values: &[usize],
@@ -2258,7 +2258,7 @@ impl ArenaCfg {
         unsafe { Self::new_unchecked(arena_config_keys, arena_config_values) }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2579-L2608)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2594-L2623)
     ///
     /// # Safety
     ///
@@ -2275,7 +2275,7 @@ impl ArenaCfg {
         Self::new_with_c_str_unchecked(&arena_config_keys_c_string, arena_config_values)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2579-L2608)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2594-L2623)
     pub fn new_with_c_str<K: AsRef<CStr>>(
         arena_config_keys: &[K],
         arena_config_values: &[usize],
@@ -2284,7 +2284,7 @@ impl ArenaCfg {
         unsafe { Self::new_with_c_str_unchecked(arena_config_keys, arena_config_values) }
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2579-L2608)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2594-L2623)
     ///
     /// # Safety
     ///
@@ -2299,7 +2299,7 @@ impl ArenaCfg {
         Self::new_with_c_chars_with_nul(&arena_config_keys_c_char, arena_config_values)
     }
 
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2579-L2608)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2594-L2623)
     ///
     /// # Safety
     ///
@@ -2321,7 +2321,7 @@ impl ArenaCfg {
 }
 
 impl Drop for ArenaCfg {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2458)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2473)
     fn drop(&mut self) {
         unsafe { ORT_API.ReleaseArenaCfg.unwrap()(self.raw.as_ptr()) }
     }
@@ -2333,7 +2333,7 @@ pub struct PrepackedWeightsContainer {
 }
 
 impl PrepackedWeightsContainer {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2633-L2645)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2648-L2660)
     pub fn new() -> Self {
         let mut prepacked_weights_container = ptr::null_mut();
         panic_on_error!(ORT_API.CreatePrepackedWeightsContainer.unwrap()(
@@ -2350,7 +2350,7 @@ impl Default for PrepackedWeightsContainer {
 }
 
 impl Drop for PrepackedWeightsContainer {
-    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2647-L2651)
+    /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2662-L2666)
     fn drop(&mut self) {
         unsafe { ORT_API.ReleasePrepackedWeightsContainer.unwrap()(self.raw.as_ptr()) }
     }
@@ -2360,7 +2360,7 @@ unsafe impl Send for PrepackedWeightsContainer {}
 
 unsafe impl Sync for PrepackedWeightsContainer {}
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2004-L2025)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2019-L2040)
 pub fn available_providers() -> self::Result<Vec<String>> {
     let mut providers_ptr = ptr::null_mut::<*mut c_char>();
     let mut num_providers = 0;
@@ -2382,7 +2382,7 @@ pub fn available_providers() -> self::Result<Vec<String>> {
     }
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3092-L3102)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L3112-L3122)
 pub fn execution_provider_api(provider_name: &str) -> self::Result<*const c_void> {
     let mut provider_api = ptr::null::<c_void>();
     let provider_name_c_string = CString::new(provider_name)?;
@@ -2394,13 +2394,13 @@ pub fn execution_provider_api(provider_name: &str) -> self::Result<*const c_void
     Ok(provider_api)
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2498-L2508)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2513-L2523)
 pub fn set_current_gpu_device_id(device_id: i32) -> self::Result<()> {
     bail_on_error!(ORT_API.SetCurrentGpuDeviceId.unwrap()(device_id));
     Ok(())
 }
 
-/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.10.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2510-L2520)
+/// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.0/include/onnxruntime/core/session/onnxruntime_c_api.h#L2525-L2535)
 pub fn current_gpu_device_id() -> self::Result<i32> {
     let mut device_id = 0;
     bail_on_error!(ORT_API.GetCurrentGpuDeviceId.unwrap()(&mut device_id));
@@ -2412,6 +2412,7 @@ pub fn current_gpu_device_id() -> self::Result<i32> {
 // ORT_API2_STATUS(AddCustomOpDomain, _Inout_ OrtSessionOptions* options, _In_ OrtCustomOpDomain* custom_op_domain);
 // ORT_API2_STATUS(CastTypeInfoToMapTypeInfo, _In_ const OrtTypeInfo* type_info, _Outptr_result_maybenull_ const OrtMapTypeInfo** out);
 // ORT_API2_STATUS(CastTypeInfoToSequenceTypeInfo, _In_ const OrtTypeInfo* type_info, _Outptr_result_maybenull_ const OrtSequenceTypeInfo** out);
+// ORT_API2_STATUS(CreateCUDAProviderOptions, _Outptr_ OrtCUDAProviderOptionsV2** out);
 // ORT_API2_STATUS(CreateCustomOpDomain, _In_ const char* domain, _Outptr_ OrtCustomOpDomain** out);
 // ORT_API2_STATUS(CreateOpaqueValue, _In_z_ const char* domain_name, _In_z_ const char* type_name, _In_ const void* data_container, size_t data_container_size, _Outptr_ OrtValue** out);
 // ORT_API2_STATUS(CreateSparseTensorAsOrtValue, _Inout_ OrtAllocator* allocator, _In_ const int64_t* dense_shape, size_t dense_shape_len, ONNXTensorElementDataType type, _Outptr_ OrtValue** out);
@@ -2424,6 +2425,7 @@ pub fn current_gpu_device_id() -> self::Result<i32> {
 // ORT_API2_STATUS(FillSparseTensorCsr, _Inout_ OrtValue* ort_value, _In_ const OrtMemoryInfo* data_mem_info, _In_ const int64_t* values_shape, size_t values_shape_len, _In_ const void* values, _In_ const int64_t* inner_indices_data, size_t inner_indices_num, _In_ const int64_t* outer_indices_data, size_t outer_indices_num);
 // ORT_API2_STATUS(FillStringTensor, _Inout_ OrtValue* value, _In_ const char* const* s, size_t s_len);
 // ORT_API2_STATUS(FillStringTensorElement, _Inout_ OrtValue* value, _In_ const char* s, size_t index);
+// ORT_API2_STATUS(GetCUDAProviderOptionsAsString, _In_ const OrtCUDAProviderOptionsV2* cuda_options, _Inout_ OrtAllocator* allocator, _Outptr_ char** ptr);
 // ORT_API2_STATUS(GetMapKeyType, _In_ const OrtMapTypeInfo* map_type_info, _Out_ enum ONNXTensorElementDataType* out);
 // ORT_API2_STATUS(GetMapValueType, _In_ const OrtMapTypeInfo* map_type_info, _Outptr_ OrtTypeInfo** type_info);
 // ORT_API2_STATUS(GetOpaqueValue, _In_ const char* domain_name, _In_ const char* type_name, _In_ const OrtValue* in, _Out_ void* data_container, size_t data_container_size);
@@ -2452,14 +2454,19 @@ pub fn current_gpu_device_id() -> self::Result<i32> {
 // ORT_API2_STATUS(KernelInfoGetAttribute_int64, _In_ const OrtKernelInfo* info, _In_ const char* name, _Out_ int64_t* out);
 // ORT_API2_STATUS(KernelInfoGetAttribute_string, _In_ const OrtKernelInfo* info, _In_ const char* name, _Out_ char* out, _Inout_ size_t* size);
 // ORT_API2_STATUS(RegisterCustomOpsLibrary, _Inout_ OrtSessionOptions* options, _In_ const char* library_path, void** library_handle);
-// void(ORT_API_CALL* ReleaseTensorRTProviderOptions)(_Frees_ptr_opt_ OrtTensorRTProviderOptionsV2* input);
 // ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_CUDA, _In_ OrtSessionOptions* options, _In_ const OrtCUDAProviderOptions* cuda_options);
+// ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_CUDA_V2, _In_ OrtSessionOptions* options, _In_ const OrtCUDAProviderOptionsV2* cuda_options);
+// ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_MIGraphX, _In_ OrtSessionOptions* options, _In_ const OrtMIGraphXProviderOptions* migraphx_options);
 // ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_OpenVINO, _In_ OrtSessionOptions* options, _In_ const OrtOpenVINOProviderOptions* provider_options);
 // ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_ROCM, _In_ OrtSessionOptions* options, _In_ const OrtROCMProviderOptions* rocm_options);
 // ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_TensorRT, _In_ OrtSessionOptions* options, _In_ const OrtTensorRTProviderOptions* tensorrt_options);
 // ORT_API2_STATUS(SessionOptionsAppendExecutionProvider_TensorRT_V2, _In_ OrtSessionOptions* options, _In_ const OrtTensorRTProviderOptionsV2* tensorrt_options);
+// ORT_API2_STATUS(UpdateCUDAProviderOptions, _Inout_ OrtCUDAProviderOptionsV2* cuda_options, _In_reads_(num_keys) const char* const* provider_options_keys, _In_reads_(num_keys) const char* const* provider_options_values, _In_ size_t num_keys);
 // ORT_API2_STATUS(UpdateTensorRTProviderOptions, _Inout_ OrtTensorRTProviderOptionsV2* tensorrt_options, _In_reads_(num_keys) const char* const* provider_options_keys, _In_reads_(num_keys) const char* const* provider_options_values, _In_ size_t num_keys);
 // ORT_API2_STATUS(UseBlockSparseIndices, _Inout_ OrtValue* ort_value, const int64_t* indices_shape, size_t indices_shape_len, _Inout_ int32_t* indices_data);
 // ORT_API2_STATUS(UseCooIndices, _Inout_ OrtValue* ort_value, _Inout_ int64_t* indices_data, size_t indices_num);
 // ORT_API2_STATUS(UseCsrIndices, _Inout_ OrtValue* ort_value, _Inout_ int64_t* inner_data, size_t inner_num, _Inout_ int64_t* outer_data, size_t outer_num);
 // ORT_API_STATUS(OrtSessionOptionsAppendExecutionProvider_CUDA, _In_ OrtSessionOptions* options, int device_id);
+// ORT_API_STATUS(OrtSessionOptionsAppendExecutionProvider_MIGraphX, _In_ OrtSessionOptions* options, int device_id);
+// void(ORT_API_CALL* ReleaseCUDAProviderOptions)(_Frees_ptr_opt_ OrtCUDAProviderOptionsV2* input);
+// void(ORT_API_CALL* ReleaseTensorRTProviderOptions)(_Frees_ptr_opt_ OrtTensorRTProviderOptionsV2* input);
