@@ -12,5 +12,5 @@ documentation = "https://furiosa-ai.github.io/onnxrt/0.13.0/onnxrt"
 edition = "2018"
 
 [dependencies]
-once_cell = "1.10.0"
+once_cell = "1.13.0"
 onnxrt-sys = { git = "https://github.com/furiosa-ai/onnxrt-sys", tag = "0.10.0" }
