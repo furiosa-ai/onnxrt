@@ -445,7 +445,7 @@ impl Drop for RunOptions {
 
 #[derive(Debug)]
 pub struct SessionOptions {
-    session_options: NonNull<OrtSessionOptions>,
+    raw: NonNull<OrtSessionOptions>,
 }
 
 impl SessionOptions {
@@ -453,13 +453,13 @@ impl SessionOptions {
     pub fn new() -> Self {
         let mut session_options = ptr::null_mut::<OrtSessionOptions>();
         panic_on_error!(ORT_API.CreateSessionOptions.unwrap()(&mut session_options));
-        Self { session_options: NonNull::new(session_options).unwrap() }
+        Self { raw: NonNull::new(session_options).unwrap() }
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L860-L873)
     pub fn set_intra_op_num_threads(&mut self, intra_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetIntraOpNumThreads.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             intra_op_num_threads,
         ));
         self
@@ -468,7 +468,7 @@ impl SessionOptions {
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L875-L887)
     pub fn set_inter_op_num_threads(&mut self, inter_op_num_threads: i32) -> &mut Self {
         panic_on_error!(ORT_API.SetInterOpNumThreads.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             inter_op_num_threads,
         ));
         self
@@ -480,7 +480,7 @@ impl SessionOptions {
         graph_optimization_level: GraphOptimizationLevel,
     ) -> &mut Self {
         panic_on_error!(ORT_API.SetSessionGraphOptimizationLevel.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             graph_optimization_level,
         ));
         self
@@ -488,13 +488,13 @@ impl SessionOptions {
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L802-L810)
     pub fn enable_cpu_mem_arena(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.EnableCpuMemArena.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.EnableCpuMemArena.unwrap()(self.raw.as_ptr()));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L812-L818)
     pub fn disable_cpu_mem_arena(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.DisableCpuMemArena.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.DisableCpuMemArena.unwrap()(self.raw.as_ptr()));
         self
     }
 
@@ -511,7 +511,7 @@ impl SessionOptions {
             optimized_model_file_path.as_ref().as_os_str().encode_wide().collect::<Vec<_>>();
 
         panic_on_error!(ORT_API.SetOptimizedModelFilePath.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             optimized_model_file.as_ptr(),
         ));
         Ok(self)
@@ -530,7 +530,7 @@ impl SessionOptions {
             profile_file_prefix.as_ref().as_os_str().encode_wide().collect::<Vec<_>>();
 
         panic_on_error!(ORT_API.EnableProfiling.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             profile_file_prefix.as_ptr(),
         ));
         Ok(self)
@@ -538,26 +538,26 @@ impl SessionOptions {
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L769-L775)
     pub fn disable_profiling(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.DisableProfiling.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.DisableProfiling.unwrap()(self.raw.as_ptr()));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L777-L790)
     pub fn enable_mem_pattern(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.EnableMemPattern.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.EnableMemPattern.unwrap()(self.raw.as_ptr()));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L792-L800)
     pub fn disable_mem_pattern(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.DisableMemPattern.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.DisableMemPattern.unwrap()(self.raw.as_ptr()));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L747-L758)
     pub fn set_execution_mode(&mut self, execution_mode: ExecutionMode) -> &mut Self {
         panic_on_error!(ORT_API.SetSessionExecutionMode.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             execution_mode,
         ));
         self
@@ -566,40 +566,31 @@ impl SessionOptions {
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L820-L827)
     pub fn set_log_id(&mut self, log_id: &str) -> self::Result<&mut Self> {
         let log_id = CString::new(log_id)?;
-        panic_on_error!(ORT_API.SetSessionLogId.unwrap()(
-            self.session_options.as_ptr(),
-            log_id.as_ptr(),
-        ));
+        panic_on_error!(ORT_API.SetSessionLogId.unwrap()(self.raw.as_ptr(), log_id.as_ptr(),));
         Ok(self)
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L829-L838)
     pub fn set_log_verbosity_level(&mut self, level: i32) -> &mut Self {
-        panic_on_error!(ORT_API.SetSessionLogVerbosityLevel.unwrap()(
-            self.session_options.as_ptr(),
-            level,
-        ));
+        panic_on_error!(ORT_API.SetSessionLogVerbosityLevel.unwrap()(self.raw.as_ptr(), level,));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L840-L847)
     pub fn set_log_severity_level(&mut self, level: i32) -> &mut Self {
-        panic_on_error!(ORT_API.SetSessionLogSeverityLevel.unwrap()(
-            self.session_options.as_ptr(),
-            level,
-        ));
+        panic_on_error!(ORT_API.SetSessionLogSeverityLevel.unwrap()(self.raw.as_ptr(), level,));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1958-L1967)
     pub fn disable_per_session_threads(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.DisablePerSessionThreads.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.DisablePerSessionThreads.unwrap()(self.raw.as_ptr()));
         self
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L2795-L2801)
     pub fn enable_ort_custom_ops(&mut self) -> &mut Self {
-        panic_on_error!(ORT_API.EnableOrtCustomOps.unwrap()(self.session_options.as_ptr()));
+        panic_on_error!(ORT_API.EnableOrtCustomOps.unwrap()(self.raw.as_ptr()));
         self
     }
 
@@ -612,7 +603,7 @@ impl SessionOptions {
         let config_key = CString::new(config_key)?;
         let config_value = CString::new(config_value)?;
         bail_on_error!(ORT_API.AddSessionConfigEntry.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             config_key.as_ptr(),
             config_value.as_ptr(),
         ));
@@ -627,7 +618,7 @@ impl SessionOptions {
     ) -> self::Result<&mut Self> {
         let dim_notation = CString::new(dim_denotation)?;
         panic_on_error!(ORT_API.AddFreeDimensionOverride.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             dim_notation.as_ptr(),
             dim_value,
         ));
@@ -642,7 +633,7 @@ impl SessionOptions {
     ) -> self::Result<&mut Self> {
         let dim_notation = CString::new(dim_name)?;
         panic_on_error!(ORT_API.AddFreeDimensionOverrideByName.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             dim_notation.as_ptr(),
             dim_value,
         ));
@@ -657,7 +648,7 @@ impl SessionOptions {
     ) -> self::Result<&mut Self> {
         let name = CString::new(name)?;
         bail_on_error!(ORT_API.AddInitializer.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             name.as_ptr(),
             value.raw,
         ));
@@ -670,7 +661,7 @@ impl SessionOptions {
         custom_create_thread_fn: OrtCustomCreateThreadFn,
     ) -> &mut Self {
         panic_on_error!(ORT_API.SessionOptionsSetCustomCreateThreadFn.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             custom_create_thread_fn,
         ));
         self
@@ -683,7 +674,7 @@ impl SessionOptions {
         custom_thread_creation_options: *mut c_void,
     ) -> &mut Self {
         panic_on_error!(ORT_API.SessionOptionsSetCustomThreadCreationOptions.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             custom_thread_creation_options,
         ));
         self
@@ -695,7 +686,7 @@ impl SessionOptions {
         custom_join_thread_fn: OrtCustomJoinThreadFn,
     ) -> &mut Self {
         panic_on_error!(ORT_API.SessionOptionsSetCustomJoinThreadFn.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             custom_join_thread_fn,
         ));
         self
@@ -707,10 +698,10 @@ impl Clone for SessionOptions {
     fn clone(&self) -> Self {
         let mut session_options = ptr::null_mut::<OrtSessionOptions>();
         panic_on_error!(ORT_API.CloneSessionOptions.unwrap()(
-            self.session_options.as_ptr(),
+            self.raw.as_ptr(),
             &mut session_options,
         ));
-        Self { session_options: NonNull::new(session_options).unwrap() }
+        Self { raw: NonNull::new(session_options).unwrap() }
     }
 }
 
@@ -724,7 +715,7 @@ impl Drop for SessionOptions {
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1731)
     fn drop(&mut self) {
         unsafe {
-            ORT_API.ReleaseSessionOptions.unwrap()(self.session_options.as_ptr());
+            ORT_API.ReleaseSessionOptions.unwrap()(self.raw.as_ptr());
         }
     }
 }
@@ -910,7 +901,7 @@ impl Session {
         bail_on_error!(ORT_API.CreateSession.unwrap()(
             env.lock().unwrap().raw.as_ptr(),
             model_path.as_ptr(),
-            options.session_options.as_ptr(),
+            options.raw.as_ptr(),
             &mut session,
         ));
         Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
@@ -932,7 +923,7 @@ impl Session {
         bail_on_error!(ORT_API.CreateSessionWithPrepackedWeightsContainer.unwrap()(
             env.lock().unwrap().raw.as_ptr(),
             model_path.as_ptr(),
-            options.session_options.as_ptr(),
+            options.raw.as_ptr(),
             prepacked_weights_container.lock().unwrap().raw.as_ptr(),
             &mut session,
         ));
@@ -954,7 +945,7 @@ impl Session {
             env.lock().unwrap().raw.as_ptr(),
             model_data.as_ptr() as *const c_void,
             model_data.len(),
-            options.session_options.as_ptr(),
+            options.raw.as_ptr(),
             &mut session,
         ));
         Ok(Session { raw: NonNull::new(session).unwrap(), env, prepacked_weights_container: None })
@@ -972,7 +963,7 @@ impl Session {
             env.lock().unwrap().raw.as_ptr(),
             model_data.as_ptr() as *const c_void,
             model_data.len(),
-            options.session_options.as_ptr(),
+            options.raw.as_ptr(),
             prepacked_weights_container.lock().unwrap().raw.as_ptr(),
             &mut session,
         ));
