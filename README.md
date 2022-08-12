@@ -1,10 +1,10 @@
 # OnnxRt
 
 [![build status](https://github.com/furiosa-ai/onnxrt/actions/workflows/build.yml/badge.svg)](https://github.com/furiosa-ai/onnxrt/actions/workflows/build.yml?query=branch%3Amain)
-[![docs](https://img.shields.io/badge/docs-0.13.0-blue.svg)](https://furiosa-ai.github.io/onnxrt/0.13.0/onnxrt/)
+[![docs](https://img.shields.io/badge/docs-0.14.0-blue.svg)](https://furiosa-ai.github.io/onnxrt/0.14.0/onnxrt/)
 
 OnnxRt provides mid-level Rust bindings to [the C API] for Microsoft's [ONNX
-Runtime] v1.11.1.
+Runtime] v1.12.0.
 
 [the C API]: https://www.onnxruntime.ai/docs/reference/api/c-api.html
 [ONNX Runtime]: https://www.onnxruntime.ai/
@@ -21,7 +21,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-onnxrt = { git = "https://github.com/furiosa-ai/onnxrt", tag = "0.13.0" }
+onnxrt = { git = "https://github.com/furiosa-ai/onnxrt", tag = "0.14.0" }
 ```
 
 ## Example
