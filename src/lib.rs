@@ -595,7 +595,7 @@ impl SessionOptions {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L2081-L2094)
-    pub fn add_session_config_entry(
+    pub fn set_session_config_entry(
         &mut self,
         config_key: &str,
         config_value: &str,
