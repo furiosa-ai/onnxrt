@@ -611,7 +611,7 @@ impl SessionOptions {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1484-L1496)
-    pub fn add_free_dimension_override(
+    pub fn set_free_dimension_by_denotation(
         &mut self,
         dim_denotation: &str,
         dim_value: i64,
@@ -626,7 +626,7 @@ impl SessionOptions {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L2004-L2013)
-    pub fn add_free_dimension_override_by_name(
+    pub fn set_free_dimension_by_name(
         &mut self,
         dim_name: &str,
         dim_value: i64,
