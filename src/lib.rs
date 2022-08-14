@@ -641,7 +641,7 @@ impl SessionOptions {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.11.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L2359-L2374)
-    pub fn add_initializer<'s, 'v: 's>(
+    pub fn set_initializer<'s, 'v: 's>(
         &'s mut self,
         name: &str,
         value: &'v Value<'_>,
