@@ -13,4 +13,4 @@ edition = "2021"
 
 [dependencies]
 once_cell = "1.16.0"
-onnxrt-sys = { git = "https://github.com/furiosa-ai/onnxrt-sys", tag = "0.13.0" }
+onnxrt-sys = { git = "https://github.com/furiosa-ai/onnxrt-sys", branch = 'feature/make_2nd_build_fresh' }
