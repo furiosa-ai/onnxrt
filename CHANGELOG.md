@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.16.1] - 2023-01-09
+
+### Changed
+
+- Upgrade `onnrt-sys` to version 0.13.1, which avoid redundant recompilation.
+
 ## [0.16.0] - 2022-11-01
 
 ### Changed
@@ -124,7 +130,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support ONNX Runtime v1.5.
 
-[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.16.0...HEAD
+[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.16.1...HEAD
+[0.16.1]: https://github.com/furiosa-ai/onnxrt/compare/0.16.0...0.16.1
 [0.16.0]: https://github.com/furiosa-ai/onnxrt/compare/0.15.0...0.16.0
 [0.15.0]: https://github.com/furiosa-ai/onnxrt/compare/0.14.0...0.15.0
 [0.14.0]: https://github.com/furiosa-ai/onnxrt/compare/0.13.0...0.14.0
