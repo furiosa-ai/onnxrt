@@ -94,7 +94,7 @@ impl Display for self::Error {
         match self {
             Error::IoError { source } => source.fmt(f),
             Error::NulError { source } => source.fmt(f),
-            Error::OrtError { message, .. } => write!(f, "{}", message),
+            Error::OrtError { message, .. } => write!(f, "{message}"),
             Error::TryFromIntError { source } => source.fmt(f),
             Error::Utf8Error { source } => source.fmt(f),
         }

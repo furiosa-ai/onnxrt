@@ -33,7 +33,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut session =
         Session::new_with_model_path(env, "examples/mnist-8.onnx", &SessionOptions::default())?;
     session.run(None, &["Input3"], &[input_tensor], &["Plus214_Output_0"], &mut [output_tensor])?;
-    println!("{:?}", output_buffer);
+    println!("{output_buffer:?}");
 
     Ok(())
 }
