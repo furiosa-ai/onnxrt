@@ -6,7 +6,7 @@
 OnnxRt provides mid-level Rust bindings to [the C API] for Microsoft's [ONNX
 Runtime] v1.14.1.
 
-[the C API]: https://www.onnxruntime.ai/docs/reference/api/c-api.html
+[the C API]: https://onnxruntime.ai/docs/api/c/
 [ONNX Runtime]: https://www.onnxruntime.ai/
 
 ## Requirements
