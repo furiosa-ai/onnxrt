@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Change the return type of `element_count` into `Result` because
+  `GetTensorShapeElementCount` may fail.
+
 ## [0.18.0] - 2023-03-09
 
 ### Changed

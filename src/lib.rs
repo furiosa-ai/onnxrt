@@ -1760,7 +1760,7 @@ impl TensorTypeAndShapeInfo {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1410-L1426)
-    pub fn element_count(&self) -> i64 {
+    pub fn element_count(&self) -> self::Result<i64> {
         element_count(unsafe { self.raw.as_ref() })
     }
 
@@ -1817,7 +1817,7 @@ impl<'a> UnownedTensorTypeAndShapeInfo<'a> {
     }
 
     /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1410-L1426)
-    pub fn element_count(&self) -> i64 {
+    pub fn element_count(&self) -> self::Result<i64> {
         element_count(self.raw)
     }
 
@@ -1845,14 +1845,14 @@ fn element_type(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> ONNXTensorEleme
 }
 
 /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1410-L1426)
-fn element_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> i64 {
+fn element_count(tensor_type_info: &OrtTensorTypeAndShapeInfo) -> self::Result<i64> {
     let mut count = 0;
-    panic_on_error!(ORT_API.GetTensorShapeElementCount.unwrap()(
+    bail_on_error!(ORT_API.GetTensorShapeElementCount.unwrap()(
         tensor_type_info,
         // https://github.com/microsoft/onnxruntime/issues/3132
         &mut count as *mut i64 as *mut _,
     ));
-    count
+    Ok(count)
 }
 
 /// [`onnxruntime_c_api.h`](https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1377-L1386)
@@ -2048,7 +2048,7 @@ impl<'d> Value<'d> {
             data = NonNull::dangling().as_ptr();
         }
 
-        let mut element_count = self.tensor_type_info()?.element_count();
+        let mut element_count = self.tensor_type_info()?.element_count()?;
         // https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1413
         //
         // > If any dimension is less than 0, the result is always -1.
@@ -2082,7 +2082,7 @@ impl<'d> Value<'d> {
             data = NonNull::dangling().as_ptr();
         }
 
-        let mut element_count = self.tensor_type_info()?.element_count();
+        let mut element_count = self.tensor_type_info()?.element_count()?;
         // https://github.com/microsoft/onnxruntime/blob/v1.14.1/include/onnxruntime/core/session/onnxruntime_c_api.h#L1413
         //
         // > If any dimension is less than 0, the result is always -1.
