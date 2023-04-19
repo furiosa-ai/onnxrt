@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.1] - 2023-04-19
+
 ### Fixed
 
 - Change the return type of `element_count` into `Result` because
@@ -147,7 +149,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support ONNX Runtime v1.5.
 
-[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.18.0...HEAD
+[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.18.1...HEAD
+[0.18.1]: https://github.com/furiosa-ai/onnxrt/compare/0.18.0...0.18.1
 [0.18.0]: https://github.com/furiosa-ai/onnxrt/compare/0.17.0...0.18.0
 [0.17.0]: https://github.com/furiosa-ai/onnxrt/compare/0.16.1...0.17.0
 [0.16.1]: https://github.com/furiosa-ai/onnxrt/compare/0.16.0...0.16.1
