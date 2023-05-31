@@ -964,8 +964,8 @@ impl SessionOptions {
     ) -> self::Result<&mut Self> {
         assert_eq!(provider_options_keys.len(), provider_options_values.len());
         assert!(provider_name.ends_with(&[b'\n']));
-        assert!(provider_options_keys.iter().all(|key| key.ends_with(&[b'\n'])));
-        assert!(provider_options_values.iter().all(|value| value.ends_with(&[b'\n'])));
+        assert!(provider_options_keys.iter().all(|x| x.ends_with(&[b'\0'])));
+        assert!(provider_options_values.iter().all(|x| x.ends_with(&[b'\0'])));
         unsafe {
             self.append_execution_provider_with_bytes_with_nul_unchecked(
                 provider_name,
