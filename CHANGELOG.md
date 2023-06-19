@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.0] - 2023-06-19
+
+### Added
+
+- Support ONNX Runtime v1.15.1.
+
 ## [0.19.0] - 2023-05-26
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.15.0.
 
@@ -22,13 +28,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.18.0] - 2023-03-09
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.14.1.
 
 ## [0.17.0] - 2023-03-09
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.14.0.
 
@@ -40,38 +46,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.16.0] - 2022-11-01
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.13.1.
 
 ## [0.15.0] - 2022-08-14
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.12.1.
 
 ## [0.14.0] - 2022-08-14
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.12.0.
+
+### Changed
+
 - Rename `add*` methods to `set*`.
 
 ## [0.13.0] - 2022-05-20
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.11.1.
 
 ## [0.12.0] - 2022-05-20
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.11.0.
 
 ## [0.11.0] - 2022-05-18
 
-### Changed
+### Added
 
 - Support ONNX Runtime v1.10.0.
 
@@ -155,7 +164,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support ONNX Runtime v1.5.
 
-[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.19.0...HEAD
+[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.20.0...HEAD
+[0.20.0]: https://github.com/furiosa-ai/onnxrt/compare/0.19.0...0.20.0
 [0.19.0]: https://github.com/furiosa-ai/onnxrt/compare/0.18.1...0.19.0
 [0.18.1]: https://github.com/furiosa-ai/onnxrt/compare/0.18.0...0.18.1
 [0.18.0]: https://github.com/furiosa-ai/onnxrt/compare/0.17.0...0.18.0
