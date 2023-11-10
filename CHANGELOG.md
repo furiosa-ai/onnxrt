@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.23.0] - 2023-11-10
+
+### Added
+
+- Support ONNX Runtime v1.16.2.
+
 ## [0.22.0] - 2023-10-12
 
 ### Added
@@ -176,7 +182,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support ONNX Runtime v1.5.
 
-[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.22.0...HEAD
+[Unreleased]: https://github.com/furiosa-ai/onnxrt/compare/0.23.0...HEAD
+[0.23.0]: https://github.com/furiosa-ai/onnxrt/compare/0.22.0...0.23.0
 [0.22.0]: https://github.com/furiosa-ai/onnxrt/compare/0.21.0...0.22.0
 [0.21.0]: https://github.com/furiosa-ai/onnxrt/compare/0.20.0...0.21.0
 [0.20.0]: https://github.com/furiosa-ai/onnxrt/compare/0.19.0...0.20.0
